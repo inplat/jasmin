@@ -276,6 +276,13 @@ class deliverSmThrower(Thrower):
                     RoutedDeliverSmContent.params['validity_period'] is not None):
             args['validity'] = RoutedDeliverSmContent.params['validity_period']
 
+        # USSD params
+        if RoutedDeliverSmContent.params['ussd_service_op'] is not None:
+            args['ussd_service_op'] = RoutedDeliverSmContent.params['ussd_service_op']
+        if RoutedDeliverSmContent.params['its_session_info'] is not None:
+            args['its_session_info'] = RoutedDeliverSmContent.params['its_session_info']
+
+
         counter = 0
         for dc in dcs:
             counter += 1

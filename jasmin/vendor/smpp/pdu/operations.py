@@ -264,6 +264,7 @@ class DeliverSM(PDUDataRequest):
         'network_error_code',
         'message_state',
         'receipted_message_id',
+        'ussd_service_op',
     ]
 
 class DataSMResp(PDUResponse):
@@ -330,6 +331,7 @@ class DataSM(PDUDataRequest):
         'language_indicator',
         'its_reply_type',
         'its_session_info',
+        'ussd_service_op',
     ]
 
 class QuerySMResp(PDUResponse):

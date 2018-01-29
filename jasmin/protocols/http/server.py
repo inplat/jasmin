@@ -251,6 +251,16 @@ class Send(Resource):
                     routable.pdu.params['validity_period'],
                     updated_request.args['validity-period'][0])
 
+            # USSD params
+            if 'ussd_service_op' in updated_request.args:
+                ussd_service_op = int(updated_request.args['ussd_service_op'][0])
+                routable.pdu.params['ussd_service_op'] = ussd_service_op
+                self.log.debug("SubmitSmPDU ussd_service_op is set to %s", ussd_service_op)
+            if 'its_session_info' in updated_request.args:
+                its_session_info = int(updated_request.args['its_session_info'][0])
+                routable.pdu.params['its_session_info'] = its_session_info
+                self.log.debug("SubmitSmPDU its_session_info is set to %s", its_session_info)
+
             # Set DLR bit mask on the last pdu
             _last_pdu = routable.pdu
             while True:
@@ -434,7 +444,10 @@ class Send(Resource):
                       'tags'        : {'optional': True, 'pattern': re.compile(r'^([-a-zA-Z0-9,])*$')},
                       'content'     : {'optional': True},
                       'hex-content' : {'optional': True},
-                      'custom_tlvs' : {'optional': True}}
+                      'custom_tlvs' : {'optional': True},
+                      # USSD specific fields
+                      'ussd_service_op': {'optional': True, 'pattern': re.compile(r'^(0|1|2|3|4|16|17|18|19){1}$')},
+                      'its_session_info': {'optional': True, 'pattern': re.compile(r'^\d+$')}}
 
             if updated_request.getHeader('content-type') == 'application/json':
                 json_body = updated_request.content.read()
